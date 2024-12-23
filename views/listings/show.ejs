@@ -1,0 +1,180 @@
+<% layout("layouts/boilerplate") %>
+    <style>
+        .listing-image {
+            height: 300px;
+            /* Adjusted height to fit smaller card */
+            width: 100%;
+            object-fit: cover;
+            /* border-radius: 20px; */
+        }
+
+        .card-container {
+            max-width: 600px;
+            /* Set a fixed width for the card */
+            margin: 0 auto;
+            /* Center card on the page */
+        }
+
+        .review-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .star-rating {
+        display: flex;
+        gap: 5px;
+        cursor: pointer;
+        flex-direction: row-reverse; /* Reverse the order of stars visually */
+        /* margin-right: 430px; */
+    }
+
+    .star-rating input[type="radio"] {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 1.5rem;
+        color: #ccc;
+        transition: color 0.2s ease;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffc107;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .review-container {
+        display: flex;
+        /* flex-direction: row-reverse; */
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .review-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+    }
+
+    .star-rating {
+        color: #ffc107;
+        direction: ltr;
+    }
+    </style>
+
+    <body>
+        <div class="container my-5">
+           <h2 class="text-center mb-4">
+                <%=listing.title%>
+            </h2>
+            <div class="card card-container shadow-sm">
+                <img src="<%=listing.image.url%>" class="card-img-top listing-image" alt="Listing image">
+                <div class="card-body">
+                <p>Owned by <strong><%=listing.owner.username%></strong></p>
+
+
+                    <p class="card-text"><strong>Description:</strong>
+                        <%=listing.description%>
+                    </p>
+                    <p class="card-text"><strong>Price:</strong> ₹<%=listing.price%>
+                    </p>
+                    <p class="card-text"><strong>Country:</strong>
+                        <%=listing.country%>
+                    </p>
+                    <p class="card-text"><strong>Location:</strong>
+                        <%=listing.location%>
+                    </p>
+                   
+<%if(currUser && currUser._id.equals(listing.owner._id)){%>
+
+
+                    
+                    <div class="d-flex justify-content-between">
+                        <form method="get" action="/listings/<%=listing.id%>/edit">
+                            <button class="btn btn-primary">Edit</button>
+                        </form>
+                        <form method="post" action="/listings/<%=listing.id%>?_method=DELETE">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+<%if(currUser){%>
+
+    <div class="review-form-container">
+        <hr>
+        <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
+            <div class="mt-3 mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="review[rating]" value="5"><label for="star5">&#9733;</label>
+                    <input type="radio" id="star4" name="review[rating]" value="4"><label for="star4">&#9733;</label>
+                    <input type="radio" id="star3" name="review[rating]" value="3"><label for="star3">&#9733;</label>
+                    <input type="radio" id="star2" name="review[rating]" value="2"><label for="star2">&#9733;</label>
+                    <input type="radio" id="star1" name="review[rating]" value="1"><label for="star1">&#9733;</label>
+                </div>
+            </div>
+            <div class="mt-3 mb-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea name="review[comment]" id="comment" class="form-control" rows="4" required></textarea>
+                <div class="invalid-feedback">Please add a comment.</div>
+            </div>
+            <button class="btn btn-outline-dark submit-btn">Submit</button>
+        </form>
+    </div>
+<%}%>
+
+
+
+    <hr>
+    <div class="review-container row">
+        <% for (review of listing.review) { %>
+        <div class="review-card col-lg-5 col-md-5 col-sm-12 mb-4">
+            <div class="card-body">
+                <h5 class="card-title">@<%= review.author.username %></h5>
+                <p class="card-text"><%= review.comment %></p>
+                <p class="card-text star-rating">
+                    <% for (let i = 1; i <= 5; i++) { %>
+                        <span><%= i <= review.rating ? '★' : '☆' %></span>
+                    <% } %> 
+                </p>
+            </div>
+            <% if(currUser && currUser._id.equals(review.author._id)) { %>
+            <form method="post" action="/listings/<%= listing.id %>/reviews/<%= review.id %>?_method=DELETE">
+                <button class="btn btn-sm btn-dark mb-3">Delete</button>
+            </form>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+  
+
+
+    </body>
+
+
+    </html>
+
+

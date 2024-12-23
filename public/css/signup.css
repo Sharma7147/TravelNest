@@ -1,0 +1,126 @@
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e7f1f9;
+    margin: 0;
+}
+
+/* Gradient for the header */
+.text-gradient {
+    background: linear-gradient(90deg, #ff5e62, #ff9966);
+    /* -webkit-background-clip: text; */
+    color: transparent;
+    font-weight: 600;
+}
+
+/* Form card styling with gradient background */
+.form-card {
+    max-width: 400px;
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for the form card */
+.form-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Input field enhancements */
+.form-control {
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    background-color: #f7f9fc;
+    border: 2px solid #ddd;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: #ff5e62;
+    box-shadow: 0 0 8px rgba(255, 94, 98, 0.6);
+}
+
+/* Focus effect on the form control */
+.form-control:focus::placeholder {
+    color: transparent;
+}
+
+::placeholder {
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* Submit button with gradient background */
+.btn-primary {
+    background: linear-gradient(90deg, #ff5e62, #ff9966);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(255, 94, 98, 0.3);
+}
+
+/* Toggle button with subtle hover effects */
+.toggle-btn {
+    font-size: 14px;
+    color: #ff5e62;
+    border: 2px solid #ff5e62;
+    background-color: transparent;
+    padding: 14px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    color: #fff;
+    background-color: #ff5e62;
+    border-color: #ff5e62;
+}
+
+/* Animation for the button */
+.submit-btn {
+    animation: buttonAnimation 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes buttonAnimation {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Form padding and spacing */
+.form-container {
+    padding: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .form-card {
+        padding: 25px;
+        width: 90%;
+    }
+
+    .btn, .form-control {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .toggle-btn {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,50 @@
+/* Ensure the body and html take up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Wrapper that uses flexbox to manage layout */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Ensures the footer is pushed to the bottom */
+}
+
+/* Content area takes up all available space */
+.content {
+    flex-grow: 1;  /* This allows the content area to expand */
+}
+
+/* Footer styles */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-socials {
+    margin-bottom: 15px;
+}
+
+.footer-icon {
+    color: white;
+    margin: 0 10px;
+    font-size: 24px;
+}
+
+.footer-text {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
